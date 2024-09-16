@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: rgb(150, 236, 227);
+            margin: 0;
+            padding: 0;
+        }
+        input[type = "number"]{
+            width: 50%;
+            height: 40px;
+            font-size: 24px;
+            padding: 10px;
+            margin: 20px;
+            border: 1px solid #ed6b07;
+            border-radius: 5px;
+        }
+        button{
+        width: 20%;
+        height: 40px;
+        font-size: 20px;
+        background-color: #e60f12;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        }
+        button:hover {
+            background-color: #ee0eb3;
+        }
+        #result {
+            font-size: 24px;
+            color: #d60bed;
+            margin-top: 20px;
+        }
+        #generated-number {
+            font-size: 18px;
+            color: #713cb2;
+            margin-top: 10px;
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <h1>Number Guessing Game</h1>
+    <input type="number" id="guess" placeholder="Guess a number (1-100)">
+    <button id="submit">Guess</button>
+    <div id="result"></div>
+    <div id="generated-number"></div>
+
+      <script>
+        // Generate a random number between 1 and 100
+        const generatedNumber = Math.floor(Math.random() * 100) + 1;
+
+        // Event listeners
+        document.getElementById("submit").addEventListener("click", () => {
+            const userGuess = parseInt(document.getElementById("guess").value);
+            const result = checkGuess(userGuess);
+            document.getElementById("result").innerText = getResponseText(result);
+            if (result === "correct") {
+                document.getElementById("generated-number").innerText = `The generated number was: ${generatedNumber}`;
+            }
+        });
+
+        // Check guess function
+        function checkGuess(guess) {
+            if (guess < 1 || guess > 100) {
+                return "invalid";
+            } else if (guess === generatedNumber) {
+                return "correct";
+            } else if (guess > generatedNumber) {
+                return "tooLarge";
+            } else {
+                return "tooSmall";
+            }
+        }
+
+        // Helper function to get response text
+        function getResponseText(result) {
+            switch (result) {
+                case "correct":
+                    return "Correct Number!";
+                case "tooLarge":
+                    return "The number is too large";
+                case "tooSmall":
+                    return "The number is too small";
+                default:
+                    return "Invalid guess. Please try again.";
+            }
+        }
+    </script>
+</body>
+</html>
